@@ -2,7 +2,10 @@ package org.udec.tarea2;
 
 public class ReunionPresencial extends Reunion{
 
-    public ReunionPresencial(int año, int mes, int dia, int hora, int minuto, int minutosDeDuracion) {
+    private String sala;
+
+    public ReunionPresencial(int año, int mes, int dia, int hora, int minuto, int minutosDeDuracion, String sala) {
         super(año, mes, dia, hora, minuto, minutosDeDuracion);
+        this.sala = sala;
     }
 }

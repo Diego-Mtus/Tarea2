@@ -6,13 +6,13 @@ import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
 
-public abstract     class Reunion {
+public abstract class Reunion {
     private Date fecha;
     private Instant horaPrevista;
     private Duration duracionPrevista;
     private Instant horaInicio;
     private Instant horaFin;
-    private Asistencia asistenciasDeReunion;
+
     final SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss a z, dd/MM/yyyy");
 
     public Reunion(int año, int mes, int dia, int hora, int minuto, int minutosDeDuracion){

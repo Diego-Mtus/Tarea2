@@ -7,11 +7,12 @@ public class Empleado implements Invitable{
     private String nombre;
     private String correo;
 
-    public Empleado(String id, String apellidos, String nombre, String correo) {
+    public Empleado(String id, String nombre, String apellidos, String correo, Departamento departamento) {
         this.id = id;
         this.apellidos = apellidos;
         this.nombre = nombre;
         this.correo = correo;
+        departamento.agregarEmpleado(this);
     }
 
     @Override
