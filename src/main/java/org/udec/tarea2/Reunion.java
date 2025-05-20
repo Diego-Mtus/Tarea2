@@ -6,7 +6,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
 
-public class Reunion {
+public abstract     class Reunion {
     private Date fecha;
     private Instant horaPrevista;
     private Duration duracionPrevista;
@@ -31,6 +31,10 @@ public class Reunion {
         horaPrevista = horaInicioAux;
         duracionPrevista = Duration.of(minutosDeDuracion, ChronoUnit.MINUTES);
 
+    }
+
+    public Instant getHoraPrevista(){
+        return horaPrevista;
     }
 
     @Override

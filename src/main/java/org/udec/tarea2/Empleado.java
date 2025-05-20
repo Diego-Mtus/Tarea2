@@ -1,6 +1,6 @@
 package org.udec.tarea2;
 
-public class Empleado {
+public class Empleado implements Invitable{
 
     private String id;
     private String apellidos;
@@ -49,5 +49,10 @@ public class Empleado {
 
     public void setCorreo(String correo) {
         this.correo = correo;
+    }
+
+    @Override
+    public void invitar() {
+
     }
 }
