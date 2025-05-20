@@ -12,5 +12,15 @@ public class Main {
         Empleado emp2 = new Empleado("3", "Carlos", "Paz", "carlos@empresa.com", dTI);
         System.out.println(dTI);
 
+        test.iniciar();
+        System.out.println(test.getHoraInicio());
+        test.finalizar(6);
+        System.out.println(test.getHoraFin());
+        System.out.println(test.calcularTiempoReal() + " minutos.");
+
+        test.crearNota("Nota 1 test");
+        test.crearNota("Nota 2 test");
+
+        System.out.println(test.getListaDeNotas());
     }
 }
