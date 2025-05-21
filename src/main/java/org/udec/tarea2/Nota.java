@@ -7,7 +7,8 @@ public class Nota {
         this.contenido = contenido;
     }
 
-    public String getContenido() {
+    @Override
+    public String toString() {
         return contenido;
     }
 }

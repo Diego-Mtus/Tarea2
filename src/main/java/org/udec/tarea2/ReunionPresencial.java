@@ -1,11 +1,17 @@
 package org.udec.tarea2;
 
+import java.time.Instant;
+
 public class ReunionPresencial extends Reunion{
 
     private String sala;
 
-    public ReunionPresencial(int año, int mes, int dia, int hora, int minuto, int minutosDeDuracion, tipoReunion tipoReunion, String sala) {
-        super(año, mes, dia, hora, minuto, minutosDeDuracion, tipoReunion);
+    public ReunionPresencial(Instant horaPrevista, int minutosDeDuracion, tipoReunion tipoReunion, String sala) {
+        super(horaPrevista, minutosDeDuracion, tipoReunion);
         this.sala = sala;
+    }
+
+    public String getSala() {
+        return sala;
     }
 }

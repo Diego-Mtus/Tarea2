@@ -1,6 +1,9 @@
 package org.udec.tarea2;
 
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
@@ -25,20 +28,19 @@ public abstract class Reunion {
     final static SimpleDateFormat SDF = new SimpleDateFormat("hh:mm:ss a z, dd/MM/yyyy");
     final static SimpleDateFormat SDF_HORA = new SimpleDateFormat("hh:mm:ss a z");
 
-    public Reunion(int año, int mes, int dia, int hora, int minuto, int minutosDeDuracion, tipoReunion tipoReunion){
+    public Reunion(Instant horaPrevista, int minutosDeDuracion, tipoReunion tipoReunion){
         long actual = System.currentTimeMillis();
 
-        Date fechaAuxiliar = new Date(año-1900, mes - 1, dia, hora, minuto);
-        Instant horaInicioAux = Instant.ofEpochMilli(fechaAuxiliar.getTime());
+        Date fechaAuxiliar = Date.from(horaPrevista);
 
 
-        if(horaInicioAux.toEpochMilli() < actual || minutosDeDuracion <= 0){
+        if(horaPrevista.toEpochMilli() < actual || minutosDeDuracion <= 0){
             // Se tira exception FechaReunionInvalidaException
             System.out.println("ERROR");
         }
 
         this.fecha = fechaAuxiliar;
-        this.horaPrevista = horaInicioAux;
+        this.horaPrevista = horaPrevista;
         this.duracionPrevista = Duration.of(minutosDeDuracion, ChronoUnit.MINUTES);
         this.tipoReunion = tipoReunion;
     }
@@ -73,7 +75,7 @@ public abstract class Reunion {
     public String getListaDeNotas(){
         StringBuilder stringListaDeNotas = new StringBuilder();
         for (Nota n : this.listaDeNotas){
-            stringListaDeNotas.append(n.getContenido()).append("\n");
+            stringListaDeNotas.append(n).append("\n");
         }
         return "" + stringListaDeNotas;
     }
@@ -160,6 +162,67 @@ public abstract class Reunion {
             }
         }
         return listaAusencias;
+    }
+
+    public int obtenerTotalAsistencias(){
+        return obtenerAsistencias().size();
+    }
+
+    public float obtenerPorcentajeAsistencia(){
+        return (float) obtenerAsistencias().size() / listaInvitaciones.size() * 100;
+    }
+
+    public void generarInforme(String path) throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(path));
+        writer.write("=== Informe de reunión ===\n\n");
+        writer.write("Tipo de reunión: " + tipoReunion + "\n");
+        writer.write(this.toString() + "\n");
+        if (this instanceof ReunionPresencial) {
+            writer.write("Sala: " + ((ReunionPresencial) this).getSala() + "\n");
+        } else if (this instanceof ReunionVirtual){
+            writer.write("Enlace: " + ((ReunionVirtual) this).getEnlace() + "\n");
+        }
+
+        writer.write("\n--- Invitados ---\n");
+        for(Invitacion i : listaInvitaciones){
+            writer.write(i.getInvitado().toString() + "\n");
+        }
+
+        if(horaInicio != null && horaFin != null){
+            writer.write("\nHora de inicio real: " + SDF_HORA.format(Date.from(horaInicio)) + "\n");
+            writer.write("Hora de fin real: " + SDF_HORA.format(Date.from(horaFin)) + "\n");
+            writer.write("Duración real: " + calcularTiempoReal() + " minutos. \n");
+
+            writer.write("\n--- Participantes ---\n");
+            List<Invitable> asistenciasInforme = obtenerAsistencias();
+            List<Retraso> retrasosInforme = obtenerRetrasos();
+            List<Invitable> ausenciasInforme = obtenerAusencias();
+            writer.write("Total de asistencia: " + obtenerTotalAsistencias() + "\n");
+            writer.write("Porcentaje de asistencia: " + obtenerPorcentajeAsistencia() + "%\n");
+
+            writer.write("\n- Presentes -\n");
+            for(Invitable invitado : asistenciasInforme){
+                writer.write(invitado.getNombreCompleto() + "\n");
+            }
+            writer.write("\n- Atrasos -\n");
+            for(Retraso invitado : retrasosInforme){
+                writer.write(invitado.toString() + "\n");
+            }
+            writer.write("\n- Ausentes -\n");
+            for(Invitable invitado: ausenciasInforme){
+                writer.write(invitado.getNombreCompleto() + "\n");
+            }
+
+
+
+            writer.write("\n--- Notas de la reunión ---\n");
+            writer.write(getListaDeNotas());
+
+            writer.write("=========================\n");
+        }
+
+        writer.close();
+        System.out.println("Informe generado correctamente en: " + path);
     }
 
     @Override

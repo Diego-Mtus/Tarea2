@@ -3,7 +3,7 @@ package org.udec.tarea2;
 import java.util.ArrayList;
 import java.util.List;
 
-// Departamento no cuenta con interfaz de invitable, ya que se aplica a los individuos;
+// Departamento no cuenta con interfaz de invitable, ya que se aplica a sus individuos.
 public class Departamento{
 
     private String nombre;

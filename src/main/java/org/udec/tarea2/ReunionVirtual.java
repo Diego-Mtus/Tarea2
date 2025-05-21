@@ -1,11 +1,17 @@
 package org.udec.tarea2;
 
+import java.time.Instant;
+
 public class ReunionVirtual extends Reunion{
 
     private String enlace;
 
-    public ReunionVirtual(int año, int mes, int dia, int hora, int minuto, int minutosDeDuracion, tipoReunion tipoReunion, String enlace) {
-        super(año, mes, dia, hora, minuto, minutosDeDuracion, tipoReunion);
+    public ReunionVirtual(Instant horaPrevista, int minutosDeDuracion, tipoReunion tipoReunion, String enlace) {
+        super(horaPrevista, minutosDeDuracion, tipoReunion);
         this.enlace = enlace;
+    }
+
+    public String getEnlace() {
+        return enlace;
     }
 }

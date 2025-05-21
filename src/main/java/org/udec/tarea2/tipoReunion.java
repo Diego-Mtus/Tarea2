@@ -2,7 +2,7 @@ package org.udec.tarea2;
 
 public enum tipoReunion {
 
-    TECNICA,
+    TÉCNICA,
     MARKETING,
     OTRO;
 }
