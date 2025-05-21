@@ -1,6 +1,5 @@
 package org.udec.tarea2;
 
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -106,9 +105,13 @@ public abstract class Reunion {
     // Sección de gestión de asistencia
 
     public void registrarPresencia(Invitable invitado, Instant hora){
-        asistentes.put(invitado, new Asistencia(invitado, true, hora));
-        if(hora.isAfter(horaPrevista)){
-            retrasos.add(new Retraso(invitado, hora));
+        if(listaInvitaciones.stream().anyMatch(i -> i.getInvitado().equals(invitado))) {
+            asistentes.put(invitado, new Asistencia(invitado, true, hora));
+            if (hora.isAfter(horaPrevista)) {
+                retrasos.add(new Retraso(invitado, hora));
+            }
+        } else {
+            System.out.println(invitado.getNombreCompleto() + " ha intentado unirse, pero no ha sido invitado/a previamente.");
         }
     }
 
@@ -176,7 +179,7 @@ public abstract class Reunion {
         BufferedWriter writer = new BufferedWriter(new FileWriter(path));
         writer.write("=== Informe de reunión ===\n\n");
         writer.write("Tipo de reunión: " + tipoReunion + "\n");
-        writer.write(this.toString() + "\n");
+        writer.write(this + "\n");
         if (this instanceof ReunionPresencial) {
             writer.write("Sala: " + ((ReunionPresencial) this).getSala() + "\n");
         } else if (this instanceof ReunionVirtual){
