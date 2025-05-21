@@ -1,5 +1,9 @@
 package org.udec.tarea2;
 
+import java.time.Instant;
+import java.time.ZoneId;
+import java.util.Date;
+
 public class Empleado implements Invitable{
 
     private String id;
@@ -7,53 +11,33 @@ public class Empleado implements Invitable{
     private String nombre;
     private String correo;
 
-    public Empleado(String id, String nombre, String apellidos, String correo, Departamento departamento) {
+    public Empleado(String id, String nombre, String apellidos, String correo) {
         this.id = id;
         this.apellidos = apellidos;
         this.nombre = nombre;
         this.correo = correo;
-        departamento.agregarEmpleado(this);
     }
 
     @Override
     public String toString() {
-        return "Empleado " + nombre + " " + apellidos + " (ID: " + id + ") con el correo electrónico: " + correo + ".";
+        return "Empleado " + getNombreCompleto() + " (ID: " + getId() + ") con el correo electrónico: " + getCorreo() + ".";
     }
 
     public String getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getApellidos() {
-        return apellidos;
-    }
-
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    @Override
+    public String getNombreCompleto() {
+        return nombre + " " + apellidos;
     }
 
     public String getCorreo() {
         return correo;
     }
 
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
-
     @Override
-    public void invitar() {
-
+    public void invitar(Instant hora) {
+        System.out.println("Se ha invitado a empleado " + getNombreCompleto() + " a reunión a citada " + Reunion.SDF.format(Date.from(hora)));
     }
 }

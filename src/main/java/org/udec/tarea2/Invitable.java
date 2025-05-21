@@ -1,5 +1,9 @@
 package org.udec.tarea2;
 
+import java.time.Instant;
+
 public interface Invitable {
-    void invitar();
+    void invitar(Instant hora);
+
+    String getNombreCompleto();
 }

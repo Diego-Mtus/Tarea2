@@ -3,7 +3,8 @@ package org.udec.tarea2;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Departamento implements Invitable{
+// Departamento no cuenta con interfaz de invitable, ya que se aplica a los individuos;
+public class Departamento{
 
     private String nombre;
     private List<Empleado> empleados;
@@ -39,8 +40,8 @@ public class Departamento implements Invitable{
         return "Departamento " + this.nombre + ": \n" + stringAuxiliarEmpleados;
     }
 
-    @Override
     public void invitar() {
-
+        System.out.println("Se ha invitado a departamento " + nombre + ".");
     }
+
 }

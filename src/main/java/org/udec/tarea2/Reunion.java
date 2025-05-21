@@ -1,24 +1,30 @@
 package org.udec.tarea2;
 
+import org.junit.jupiter.api.parallel.ExecutionMode;
+
 import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public abstract class Reunion {
-    private Date fecha;
-    private Instant horaPrevista;
-    private Duration duracionPrevista;
+    protected Date fecha;
+    protected Instant horaPrevista;
+    protected Duration duracionPrevista;
 
-    private Instant horaInicio;
-    private Instant horaFin;
-    private List<Nota> listaDeNotas;
+    protected Instant horaInicio;
+    protected Instant horaFin;
 
-    final SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss a z, dd/MM/yyyy");
+    protected List<Nota> listaDeNotas = new ArrayList<>();;
+    protected Empleado organizador;
 
-    public Reunion(int año, int mes, int dia, int hora, int minuto, int minutosDeDuracion){
+    // Por la posible existencia de varias reuniones, se debe comprobar dentro de cada reunion si el individuo fue invitado o no.
+    protected List<Invitacion> listaInvitaciones = new ArrayList<>();
+    protected Map<Invitable, Asistencia> asistentes = new HashMap<>();
+
+    final static SimpleDateFormat SDF = new SimpleDateFormat("hh:mm:ss a z, dd/MM/yyyy");
+
+    public Reunion(int año, int mes, int dia, int hora, int minuto, int minutosDeDuracion, Empleado organizador){
         long actual = System.currentTimeMillis();
 
         Date fechaAuxiliar = new Date(año-1900, mes - 1, dia, hora, minuto);
@@ -33,7 +39,7 @@ public abstract class Reunion {
         this.fecha = fechaAuxiliar;
         this.horaPrevista = horaInicioAux;
         this.duracionPrevista = Duration.of(minutosDeDuracion, ChronoUnit.MINUTES);
-        listaDeNotas = new ArrayList<>();
+        this.organizador = organizador;
     }
 
     public Instant getHoraPrevista(){
@@ -83,12 +89,35 @@ public abstract class Reunion {
         return "" + stringListaDeNotas;
     }
 
+    // Sección de invitaciones.
+
+    private void invitarReunion(Invitable invitado){
+        // Revista la lista de invitaciones por si ya está el invitado.
+        boolean yaInvitado = listaInvitaciones.stream().anyMatch(i -> i.getInvitado().equals(invitado));
+        if (!yaInvitado){
+            listaInvitaciones.add(new Invitacion(invitado, this));
+        } else{
+            System.out.println(invitado.getNombreCompleto() + " ya ha sido invitado anteriormente.");
+        }
+    }
+
+    public void invitarIndividuo(Invitable invitado){
+        invitarReunion(invitado);
+    }
+
+    public void invitarDepartamento(Departamento departamento){
+        for(Empleado e: departamento.getEmpleados()){
+            invitarReunion(e);
+        }
+    }
+
+
     @Override
     public String toString() {
         if(horaPrevista == null || duracionPrevista == null){
             return "Hora inicio o duración no establecida.";
         }
-        return "La reunión comenzará a las " + sdf.format(Date.from(horaPrevista)) + " y durará " + duracionPrevista.getSeconds()/60 + " minutos.";
+        return "La reunión comienza a las " + SDF.format(Date.from(horaPrevista)) + " y dura " + duracionPrevista.getSeconds()/60 + " minutos.";
     }
 
 }

@@ -4,15 +4,20 @@ import java.time.Instant;
 
 
 public class Invitacion {
-    private Instant horaInicio;
+    private final Instant horaInicio;
+    private final Invitable invitado;
 
-    public Invitacion(Reunion reunion){
+    public Invitacion(Invitable invitado, Reunion reunion){
         horaInicio = reunion.getHoraPrevista();
+        this.invitado = invitado;
+        this.invitado.invitar(horaInicio);
     }
 
     public Instant getHoraInicio() {
         return horaInicio;
     }
 
-
+    public Invitable getInvitado() {
+        return invitado;
+    }
 }

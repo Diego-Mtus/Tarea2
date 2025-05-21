@@ -3,14 +3,17 @@ package org.udec.tarea2;
 public class Main {
     public static void main(String[] args) {
 
-        Reunion test = new ReunionVirtual(2025, 5, 20, 20, 2, 25, "test");
+        Departamento dTI = new Departamento("TI");
+        Empleado emp0 = new Empleado("1", "Juan", "López", "juan@empresa.com");
+        Empleado emp1 = new Empleado("2", "Ana", "Soto", "ana@empresa.com");
+        Empleado emp2 = new Empleado("3", "Carlos", "Paz", "carlos@empresa.com");
+        System.out.println(dTI);
+
+        Reunion test = new ReunionVirtual(2025, 5, 20, 20, 2, 25, emp0, "zoom.com");
         System.out.println(test);
 
-        Departamento dTI = new Departamento("TI");
-        Empleado emp0 = new Empleado("1", "Juan", "López", "juan@empresa.com", dTI);
-        Empleado emp1 = new Empleado("2", "Ana", "Soto", "ana@empresa.com", dTI);
-        Empleado emp2 = new Empleado("3", "Carlos", "Paz", "carlos@empresa.com", dTI);
-        System.out.println(dTI);
+        test.invitarIndividuo(emp0);
+        test.invitarIndividuo(emp0);
 
         test.iniciar();
         System.out.println(test.getHoraInicio());
