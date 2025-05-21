@@ -1,6 +1,5 @@
 package org.udec.tarea2;
 
-import org.junit.jupiter.api.parallel.ExecutionMode;
 
 import java.text.SimpleDateFormat;
 import java.time.*;
@@ -8,23 +7,25 @@ import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 public abstract class Reunion {
-    protected Date fecha;
-    protected Instant horaPrevista;
-    protected Duration duracionPrevista;
+    private Date fecha;
+    private Instant horaPrevista;
+    private Duration duracionPrevista;
 
-    protected Instant horaInicio;
-    protected Instant horaFin;
+    private Instant horaInicio;
+    private Instant horaFin;
 
-    protected List<Nota> listaDeNotas = new ArrayList<>();;
-    protected Empleado organizador;
+    private List<Nota> listaDeNotas = new ArrayList<>();;
+    private tipoReunion tipoReunion;
 
     // Por la posible existencia de varias reuniones, se debe comprobar dentro de cada reunion si el individuo fue invitado o no.
-    protected List<Invitacion> listaInvitaciones = new ArrayList<>();
-    protected Map<Invitable, Asistencia> asistentes = new HashMap<>();
+    private List<Invitacion> listaInvitaciones = new ArrayList<>();
+    private Map<Invitable, Asistencia> asistentes = new HashMap<>();
+    private List<Retraso> retrasos = new ArrayList<>();
 
     final static SimpleDateFormat SDF = new SimpleDateFormat("hh:mm:ss a z, dd/MM/yyyy");
+    final static SimpleDateFormat SDF_HORA = new SimpleDateFormat("hh:mm:ss a z");
 
-    public Reunion(int año, int mes, int dia, int hora, int minuto, int minutosDeDuracion, Empleado organizador){
+    public Reunion(int año, int mes, int dia, int hora, int minuto, int minutosDeDuracion, tipoReunion tipoReunion){
         long actual = System.currentTimeMillis();
 
         Date fechaAuxiliar = new Date(año-1900, mes - 1, dia, hora, minuto);
@@ -39,7 +40,7 @@ public abstract class Reunion {
         this.fecha = fechaAuxiliar;
         this.horaPrevista = horaInicioAux;
         this.duracionPrevista = Duration.of(minutosDeDuracion, ChronoUnit.MINUTES);
-        this.organizador = organizador;
+        this.tipoReunion = tipoReunion;
     }
 
     public Instant getHoraPrevista(){
@@ -54,18 +55,6 @@ public abstract class Reunion {
         return horaFin;
     }
 
-    public void iniciar(){
-        this.horaInicio = Instant.now();
-    }
-
-    public void finalizar(){
-        this.horaFin = Instant.now();
-    }
-
-    // Overload por si se quiere establecer un fin de reunion en intervalo mayor de tiempo para motivos de testeo.
-    public void finalizar(int minutosDesdeAhora){
-        this.horaFin = Instant.now().plus(minutosDesdeAhora, ChronoUnit.MINUTES);
-    }
 
     public float calcularTiempoReal(){
         if (horaInicio != null && horaFin != null) {
@@ -106,11 +95,72 @@ public abstract class Reunion {
     }
 
     public void invitarDepartamento(Departamento departamento){
+        departamento.invitar();
         for(Empleado e: departamento.getEmpleados()){
             invitarReunion(e);
         }
     }
 
+    // Sección de gestión de asistencia
+
+    public void registrarPresencia(Invitable invitado, Instant hora){
+        asistentes.put(invitado, new Asistencia(invitado, true, hora));
+        if(hora.isAfter(horaPrevista)){
+            retrasos.add(new Retraso(invitado, hora));
+        }
+    }
+
+    // Sección de inicio y fin de reunión
+    public void iniciar(){
+        this.horaInicio = Instant.now();
+    }
+
+    public void finalizar(){
+        this.horaFin = Instant.now();
+        for(Invitacion inv: listaInvitaciones){
+            // Si está invitado pero no se marcó presente antes o durante el transcurso de la reunión
+            if(!asistentes.containsKey(inv.getInvitado())){
+                asistentes.put(inv.getInvitado(), new Asistencia(inv.getInvitado(), false, null));
+            }
+        }
+    }
+
+    // Overload por si se quiere establecer un fin de reunion en intervalo mayor de tiempo para motivos de testeo.
+    public void finalizar(int minutosDesdeAhora){
+        this.horaFin = Instant.now().plus(minutosDesdeAhora, ChronoUnit.MINUTES);
+        for(Invitacion inv: listaInvitaciones){
+            // Si está invitado pero no se marcó presente antes o durante el transcurso de la reunión
+            if(!asistentes.containsKey(inv.getInvitado())){
+                asistentes.put(inv.getInvitado(), new Asistencia(inv.getInvitado(), false, null));
+            }
+        }
+    }
+
+    // Sección de obtener datos.
+
+    public List<Invitable> obtenerAsistencias(){
+        List<Invitable> listaAsistencia = new ArrayList<>();
+        for (var e: asistentes.entrySet()){
+            if(e.getValue().isPresente()){
+                listaAsistencia.add(e.getKey());
+            }
+        }
+        return listaAsistencia;
+    }
+
+    public List<Retraso> obtenerRetrasos(){
+        return new ArrayList<>(retrasos);
+    }
+
+    public List<Invitable> obtenerAusencias(){
+        List<Invitable> listaAusencias = new ArrayList<>();
+        for (var e: asistentes.entrySet()){
+            if(!e.getValue().isPresente()){
+                listaAusencias.add(e.getKey());
+            }
+        }
+        return listaAusencias;
+    }
 
     @Override
     public String toString() {

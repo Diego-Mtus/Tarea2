@@ -1,6 +1,7 @@
 package org.udec.tarea2;
 
 import java.time.Instant;
+import java.util.Date;
 
 public class Retraso {
     private final Instant hora;
@@ -17,5 +18,10 @@ public class Retraso {
 
     public Instant getHora() {
         return hora;
+    }
+
+    @Override
+    public String toString() {
+        return invitado.getNombreCompleto() + " ha tenido un retraso. Ha llegado a las " + Reunion.SDF_HORA.format(Date.from(hora)) + ".";
     }
 }

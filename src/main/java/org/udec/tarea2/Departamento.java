@@ -41,7 +41,7 @@ public class Departamento{
     }
 
     public void invitar() {
-        System.out.println("Se ha invitado a departamento " + nombre + ".");
+        System.out.println("Se ha invitado a departamento " + nombre + ":");
     }
 
 }

@@ -38,6 +38,6 @@ public class Empleado implements Invitable{
 
     @Override
     public void invitar(Instant hora) {
-        System.out.println("Se ha invitado a empleado " + getNombreCompleto() + " a reunión a citada " + Reunion.SDF.format(Date.from(hora)));
+        System.out.println("Se ha invitado a empleado " + getNombreCompleto() + " a reunión citada en horario: " + Reunion.SDF.format(Date.from(hora)));
     }
 }

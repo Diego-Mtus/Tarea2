@@ -29,7 +29,7 @@ public class InvitadoExterno implements Invitable{
 
     @Override
     public void invitar(Instant hora) {
-        System.out.println("Se ha invitado a externo " + getNombreCompleto() + " a reunión a citada " + Reunion.SDF.format(Date.from(hora)));
+        System.out.println("Se ha invitado a externo " + getNombreCompleto() + " a reunión citada en horario: " + Reunion.SDF.format(Date.from(hora)));
     }
 
     @Override

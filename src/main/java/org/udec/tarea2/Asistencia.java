@@ -5,15 +5,13 @@ import java.time.Instant;
 public class Asistencia {
 
     private final Invitable invitado;
-    private final boolean presente;
-    private final boolean tarde;
     private final Instant horaLlegada;
+    private final boolean presente;
 
-    public Asistencia(Invitable invitado, boolean presente, boolean tarde, Instant horaLlegada) {
+    public Asistencia(Invitable invitado, boolean presente, Instant horaLlegada) {
         this.invitado = invitado;
-        this.presente = presente;
-        this.tarde = tarde;
         this.horaLlegada = horaLlegada;
+        this.presente = presente;
     }
 
     public Invitable getInvitado() {
@@ -22,10 +20,6 @@ public class Asistencia {
 
     public boolean isPresente() {
         return presente;
-    }
-
-    public boolean isTarde() {
-        return tarde;
     }
 
     public Instant getHoraLlegada() {
