@@ -251,10 +251,11 @@ public abstract class Reunion {
         }
     }
 
+    // Sección de inicio y fin de reunión
     /** Método que registra el inicio de la reunión.
      * Se almacena la hora actual como la hora de inicio de la reunión.
      */
-    // Sección de inicio y fin de reunión
+
     public void iniciar(){
         this.horaInicio = Instant.now();
     }
@@ -357,7 +358,11 @@ public abstract class Reunion {
      * @return El porcentaje de asistencia a la reunión como un valor flotante.
      */
     public float obtenerPorcentajeAsistencia(){
-        return (float) obtenerAsistencias().size() / listaInvitaciones.size() * 100;
+        if(!listaInvitaciones.isEmpty()) {
+            return (float) obtenerAsistencias().size() / listaInvitaciones.size() * 100;
+        } else{
+            return 0;
+        }
     }
 
 
