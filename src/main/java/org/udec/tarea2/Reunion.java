@@ -164,22 +164,17 @@ public abstract class Reunion {
      *
      * @param contenido El contenido de la nota a crear.
      */
-    public void crearNota(String contenido){
-        listaDeNotas.add(new Nota(contenido));
+    public void crearNota(String contenido, Instant horaDeNota){
+        listaDeNotas.add(new Nota(contenido, horaDeNota));
     }
 
     /**
      * Método que devuelve una lista con todas las notas relacionadas a la reunión.
-     * Cada nota es representada en una nueva línea en el string.
      *
-     * @return Una cadena de texto que contiene todas las notas de la reunión separadas por líneas.
+     * @return Una copia de la lista que contiene las notas de reunión.
      */
-    public String getListaDeNotas(){
-        StringBuilder stringListaDeNotas = new StringBuilder();
-        for (Nota n : this.listaDeNotas){
-            stringListaDeNotas.append(n).append("\n");
-        }
-        return "" + stringListaDeNotas;
+    public List<Nota> getListaDeNotas(){
+        return new ArrayList<>(listaDeNotas);
     }
 
     // Sección de invitaciones.
@@ -417,7 +412,9 @@ public abstract class Reunion {
 
 
             writer.write("\n--- Notas de la reunión ---\n");
-            writer.write(getListaDeNotas());
+            for(Nota n: this.getListaDeNotas()){
+                writer.write(n.toString() + "\n");
+            }
 
             writer.write("=========================\n");
         }
