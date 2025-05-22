@@ -52,6 +52,11 @@ public abstract class Reunion {
      */
     private List<Nota> listaDeNotas = new ArrayList<>();;
 
+    /**
+    *   Variable que representa al organizador de la reunión, para poder desplegarlo al momento de mostrar informe.
+     */
+    private Empleado organizador;
+
     /** Enum que especifica el tipo de reunión.
      * <p>
      * TÉCNICA, MARKETING, u OTRO.
@@ -99,10 +104,11 @@ public abstract class Reunion {
      * @param horaPrevista La hora específica en la que se espera que comience la reunión.
      * @param minutosDeDuracion La duración estimada de la reunión en minutos.
      * @param tipoReunion El tipo de reunión, definido por el enumerador {@link tipoReunion}.
+     * @param organizador El empleado que organiza la reunión.
      *
      * @throws FechaReunionInvalidaException Si la hora prevista es anterior a la actual o si la duración es no positiva.
      */
-    public Reunion(Instant horaPrevista, int minutosDeDuracion, tipoReunion tipoReunion) throws FechaReunionInvalidaException, DuracionReunionInvalidaException{
+    public Reunion(Instant horaPrevista, int minutosDeDuracion, tipoReunion tipoReunion, Empleado organizador) throws FechaReunionInvalidaException, DuracionReunionInvalidaException, OrganizadorInvalidoException{
         long actual = System.currentTimeMillis();
 
         if(horaPrevista.toEpochMilli() < actual){
@@ -111,7 +117,11 @@ public abstract class Reunion {
         if(minutosDeDuracion <= 0){
             throw new DuracionReunionInvalidaException();
         }
+        if(organizador == null){
+            throw new OrganizadorInvalidoException();
+        }
 
+        this.organizador = organizador;
         this.horaPrevista = horaPrevista;
         this.duracionPrevista = Duration.of(minutosDeDuracion, ChronoUnit.MINUTES);
         this.tipoReunion = tipoReunion;
@@ -123,6 +133,14 @@ public abstract class Reunion {
      */
     public Instant getHoraPrevista(){
         return this.horaPrevista;
+    }
+
+    /** Método que obtiene datos del organizador de reunión.
+     *
+     * @return Los datos del organizador de la reunión como string.
+     */
+    public String getNombreOrganizador(){
+        return organizador.toString();
     }
 
     /**
@@ -359,6 +377,7 @@ public abstract class Reunion {
         writer.write("=== Informe de reunión ===\n\n");
         writer.write("Tipo de reunión: " + tipoReunion + "\n");
         writer.write(this + "\n");
+        writer.write("Organizado por: " + this.getNombreOrganizador() + "\n");
         if (this instanceof ReunionPresencial) {
             writer.write("Sala: " + ((ReunionPresencial) this).getSala() + "\n");
         } else if (this instanceof ReunionVirtual){

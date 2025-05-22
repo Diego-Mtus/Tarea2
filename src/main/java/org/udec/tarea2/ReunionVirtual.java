@@ -16,8 +16,8 @@ public class ReunionVirtual extends Reunion{
     /** Esta clase extiende de {@link Reunion}, heredando sus funcionalidades básicas y adaptándolas
      * a reuniones que requieren un enlace al que conectarse.
      */
-    public ReunionVirtual(Instant horaPrevista, int minutosDeDuracion, tipoReunion tipoReunion, String enlace) throws FechaReunionInvalidaException, DuracionReunionInvalidaException{
-        super(horaPrevista, minutosDeDuracion, tipoReunion);
+    public ReunionVirtual(Instant horaPrevista, int minutosDeDuracion, tipoReunion tipoReunion, Empleado organizador, String enlace) throws FechaReunionInvalidaException, DuracionReunionInvalidaException{
+        super(horaPrevista, minutosDeDuracion, tipoReunion, organizador);
         this.enlace = enlace;
     }
 
