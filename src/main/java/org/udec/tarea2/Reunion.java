@@ -243,7 +243,10 @@ public abstract class Reunion {
      */
     public void registrarPresencia(Invitable invitado, Instant hora){
         if(invitado == null){
-            // No hace nada
+            System.out.println("Error al registrar presencia: El invitado no puede ser nulo.");
+        }
+        else if(hora == null){
+            System.out.println("Error al registrar presencia: El invitado " + invitado.getNombreCompleto() + " no ha indicado la hora de llegada.");
         }
         else if(listaInvitaciones.stream().anyMatch(i -> i.getInvitado().equals(invitado))) {
             asistentes.put(invitado, new Asistencia(invitado, true, hora));

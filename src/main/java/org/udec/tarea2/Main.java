@@ -60,7 +60,7 @@ public class Main {
 
 
             test.registrarPresencia(emp0, Instant.now().plusSeconds(25));
-            test.registrarPresencia(emp1, Instant.now().plusSeconds(20));
+            test.registrarPresencia(emp1, null);
             test.crearNota("Nota 1 test", Instant.now().plusSeconds(2));
             test.crearNota("Nota 2 test", Instant.now());
 
