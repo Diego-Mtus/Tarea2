@@ -169,12 +169,14 @@ public abstract class Reunion {
     }
 
     /**
-     * Método que devuelve una lista con todas las notas relacionadas a la reunión.
+     * Método que devuelve una lista con todas las notas relacionadas a la reunión ordenadas cronológicamente.
      *
-     * @return Una copia de la lista que contiene las notas de reunión.
+     * @return Una copia de la lista que contiene las notas de reunión ordenadas cronológicamente.
      */
     public List<Nota> getListaDeNotas(){
-        return new ArrayList<>(listaDeNotas);
+        ArrayList<Nota> listaOrdenadaAux = new ArrayList<>(listaDeNotas);
+        listaOrdenadaAux.sort(Nota::compareTo);
+        return listaOrdenadaAux;
     }
 
     // Sección de invitaciones.

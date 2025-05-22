@@ -36,4 +36,6 @@
 14. **Nuevas excepciones que se lanzan al tener problemas al crear reunión:**
     Existen nuevas excepciones `DuracionReunionInvalidaException`, `FechaReunionInvalidaException`, `OrganizadorInvalidoException`.
 15. **Clase `Nota`:**
-    La clase nota también guarda el instante de tiempo en que se creo dicha nota, para eventualmente ser ordenado cronológicamente.
+    La clase `Nota` también guarda el instante de tiempo en que se creo dicha nota.
+16. **Implementación de interfaz `Comparable` en clase `Nota`:**
+    La clase `Nota` tiene implementado un método compareTo() para poder ordenar notas cronológicamente. 
