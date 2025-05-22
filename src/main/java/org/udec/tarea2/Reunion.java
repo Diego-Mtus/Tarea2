@@ -175,11 +175,15 @@ public abstract class Reunion {
      */
     private void invitarReunion(Invitable invitado){
         // Revista la lista de invitaciones por si ya está el invitado.
-        boolean yaInvitado = listaInvitaciones.stream().anyMatch(i -> i.getInvitado().equals(invitado));
-        if (!yaInvitado){
-            listaInvitaciones.add(new Invitacion(invitado, this));
-        } else{
-            System.out.println(invitado.getNombreCompleto() + " ya ha sido invitado anteriormente.");
+        try {
+            boolean yaInvitado = listaInvitaciones.stream().anyMatch(i -> i.getInvitado().equals(invitado));
+            if (!yaInvitado) {
+                listaInvitaciones.add(new Invitacion(invitado, this));
+            } else {
+                System.out.println(invitado.getNombreCompleto() + " ya ha sido invitado anteriormente.");
+            }
+        } catch (NullPointerException e){
+            System.out.println("Error: El invitado no puede ser nulo.");
         }
     }
 
@@ -219,7 +223,10 @@ public abstract class Reunion {
      * @param hora La hora en que el invitado intenta registrarse.
      */
     public void registrarPresencia(Invitable invitado, Instant hora){
-        if(listaInvitaciones.stream().anyMatch(i -> i.getInvitado().equals(invitado))) {
+        if(invitado == null){
+            // No hace nada
+        }
+        else if(listaInvitaciones.stream().anyMatch(i -> i.getInvitado().equals(invitado))) {
             asistentes.put(invitado, new Asistencia(invitado, true, hora));
             if (hora.isAfter(horaPrevista)) {
                 retrasos.add(new Retraso(invitado, hora));

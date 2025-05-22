@@ -47,10 +47,11 @@ public class Main {
     public static void main(String[] args) {
 
         Departamento dTI = new Departamento("TI");
-        Empleado emp0 = new Empleado("1", "Juan", "López", "juan@empresa.com");
+        Empleado emp0 = null;
         Empleado emp1 = new Empleado("2", "Ana", "Soto", "ana@empresa.com");
         Empleado emp2 = new Empleado("3", "Carlos", "Paz", "carlos@empresa.com");
         InvitadoExterno ext1 = new InvitadoExterno("María", "Rojas", "maria@ext.com");
+        InvitadoExterno ext2 = new InvitadoExterno("Tomás", "Villanueva", "tomas@ext.com");
         dTI.agregarEmpleado(emp0);
         dTI.agregarEmpleado(emp1);
         dTI.agregarEmpleado(emp2);
@@ -58,18 +59,23 @@ public class Main {
         Instant fechaPrueba = creadorDeInstant(2025, 5, 20, 20, 2);
 
         try{
-            Reunion test = new ReunionVirtual(Instant.now().plusSeconds(20),-1, tipoReunion.TÉCNICA, "zoom.com");
+            Reunion test = new ReunionVirtual(Instant.now().plusSeconds(20),1, tipoReunion.TÉCNICA, "zoom.com");
             System.out.println(test);
 
+            // Sección de invitar personas
             test.invitarIndividuo(emp0);
             test.invitarDepartamento(dTI);
+            test.invitarIndividuo(ext1);
+
 
             test.registrarPresencia(ext1, Instant.now());
+            test.registrarPresencia(ext2, Instant.now());
 
             test.iniciar();
             System.out.println("\nInicio de reunión:");
 
             test.registrarPresencia(emp0, Instant.now().plusSeconds(25));
+            test.registrarPresencia(emp1, Instant.now().plusSeconds(20));
             test.crearNota("Nota 1 test");
             test.crearNota("Nota 2 test");
 
@@ -85,13 +91,13 @@ public class Main {
             System.out.println("Porcentaje de asistencia: " + test.obtenerPorcentajeAsistencia() + "%");
 
             try {
-                test.generarInforme("../informe.txt");
+                test.generarInforme("test.txt");
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                System.out.println("Error: Informe no generado.\n");
             }
 
         } catch (FechaReunionInvalidaException | DuracionReunionInvalidaException e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println("Error: " + e.getMessage() + "\n");
         }
 
 
