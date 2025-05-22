@@ -220,9 +220,13 @@ public abstract class Reunion {
      * @param departamento El {@link Departamento} cuyos empleados serán invitados a la reunión.
      */
     public void invitarDepartamento(Departamento departamento){
-        departamento.invitar();
-        for(Empleado e: departamento.getEmpleados()){
-            invitarReunion(e);
+        if(departamento != null) {
+            departamento.invitar();
+            for (Empleado e : departamento.getEmpleados()) {
+                invitarReunion(e);
+            }
+        } else{
+            System.out.println("Error: El departamento invitado es null.");
         }
     }
 
