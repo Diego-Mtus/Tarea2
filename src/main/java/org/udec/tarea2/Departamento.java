@@ -19,7 +19,10 @@ public class Departamento{
     }
 
     public void agregarEmpleado(Empleado empleado) {
-        empleados.add(empleado);
+
+        if(empleado !=null) {
+            empleados.add(empleado);
+        }
     }
 
     public int obtenerCantidadEmpleados(){
@@ -34,7 +37,7 @@ public class Departamento{
     public String toString() {
         StringBuilder stringAuxiliarEmpleados = new StringBuilder();
         for (Empleado e: empleados){
-            stringAuxiliarEmpleados.append(e.toString()).append("\n");
+                stringAuxiliarEmpleados.append(e.toString()).append("\n");
         }
 
         return "Departamento " + this.nombre + ": \n" + stringAuxiliarEmpleados;

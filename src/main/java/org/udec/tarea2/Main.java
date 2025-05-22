@@ -55,6 +55,7 @@ public class Main {
         dTI.agregarEmpleado(emp0);
         dTI.agregarEmpleado(emp1);
         dTI.agregarEmpleado(emp2);
+        System.out.println(dTI);
 
         Instant fechaPrueba = creadorDeInstant(2025, 5, 20, 20, 2);
 
