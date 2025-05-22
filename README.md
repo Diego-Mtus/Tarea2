@@ -33,3 +33,7 @@
     Los invitados que no estuvieron presentes antes del fin de la reunión son registrados automáticamente como ausentes.
 13. **Porcentaje de asistencia basado únicamente en invitados:**
     El porcentaje de asistencia incluye únicamente a los invitados registrados por la reunión y no a todos los objectos `Invitable` activos.
+14. **Nuevas excepciones que se lanzan al tener problemas al crear reunión:**
+    Existen nuevas excepciones `DuracionReunionInvalidaException`, `FechaReunionInvalidaException`, `OrganizadorInvalidoException`.
+15. **Clase `Nota`:**
+    La clase nota también guarda el instante de tiempo en que se creo dicha nota, para eventualmente ser ordenado cronológicamente.
