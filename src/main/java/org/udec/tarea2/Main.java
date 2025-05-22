@@ -51,17 +51,15 @@ public class Main {
         Empleado emp1 = new Empleado("2", "Ana", "Soto", "ana@empresa.com");
         Empleado emp2 = new Empleado("3", "Carlos", "Paz", "carlos@empresa.com");
         InvitadoExterno ext1 = new InvitadoExterno("María", "Rojas", "maria@ext.com");
-        System.out.println(dTI);
+        dTI.agregarEmpleado(emp0);
+        dTI.agregarEmpleado(emp1);
+        dTI.agregarEmpleado(emp2);
 
         Instant fechaPrueba = creadorDeInstant(2025, 5, 20, 20, 2);
 
         try{
-            Reunion test = new ReunionVirtual(Instant.now().plusSeconds(20),25, tipoReunion.TÉCNICA, "zoom.com");
+            Reunion test = new ReunionVirtual(Instant.now().plusSeconds(20),-1, tipoReunion.TÉCNICA, "zoom.com");
             System.out.println(test);
-
-            dTI.agregarEmpleado(emp0);
-            dTI.agregarEmpleado(emp1);
-            dTI.agregarEmpleado(emp2);
 
             test.invitarIndividuo(emp0);
             test.invitarDepartamento(dTI);
@@ -92,7 +90,7 @@ public class Main {
                 throw new RuntimeException(e);
             }
 
-        } catch (FechaReunionInvalidaException e) {
+        } catch (FechaReunionInvalidaException | DuracionReunionInvalidaException e) {
             System.out.println("Error: " + e.getMessage());
         }
 

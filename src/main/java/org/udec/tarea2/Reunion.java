@@ -102,11 +102,14 @@ public abstract class Reunion {
      *
      * @throws FechaReunionInvalidaException Si la hora prevista es anterior a la actual o si la duración es no positiva.
      */
-    public Reunion(Instant horaPrevista, int minutosDeDuracion, tipoReunion tipoReunion) throws FechaReunionInvalidaException{
+    public Reunion(Instant horaPrevista, int minutosDeDuracion, tipoReunion tipoReunion) throws FechaReunionInvalidaException, DuracionReunionInvalidaException{
         long actual = System.currentTimeMillis();
 
-        if(horaPrevista.toEpochMilli() < actual || minutosDeDuracion <= 0){
+        if(horaPrevista.toEpochMilli() < actual){
             throw new FechaReunionInvalidaException();
+        }
+        if(minutosDeDuracion <= 0){
+            throw new DuracionReunionInvalidaException();
         }
 
         this.horaPrevista = horaPrevista;

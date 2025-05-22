@@ -15,7 +15,7 @@ public class ReunionPresencial extends Reunion{
     /** Esta clase extiende de {@link Reunion}, heredando sus funcionalidades básicas y adaptándolas
      * a reuniones que requieren un lugar definido.
      */
-    public ReunionPresencial(Instant horaPrevista, int minutosDeDuracion, tipoReunion tipoReunion, String sala) throws FechaReunionInvalidaException{
+    public ReunionPresencial(Instant horaPrevista, int minutosDeDuracion, tipoReunion tipoReunion, String sala) throws FechaReunionInvalidaException, DuracionReunionInvalidaException{
         super(horaPrevista, minutosDeDuracion, tipoReunion);
         this.sala = sala;
     }
