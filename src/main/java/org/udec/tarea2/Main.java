@@ -4,28 +4,11 @@ import java.io.IOException;
 import java.time.Instant;
 import java.util.Date;
 
-// Cambios respecto al UML y justificaciones (preliminar)
-// 1) Se añadió met0do estático creadorDeInstant() para gestionar más facilmente los Instant.
-// 2) Invitación ahora también almacena al individuo invitado, esto para que exista una lista de invitaciones en Reunion.
-// 3) Departamento ya no cuenta con la interfaz invitable, dado a que invitable es una característica de cada individuo, por lo tanto
-// si se quiere invitar a un Departamento, invitará individualmente a cada uno de sus integrantes.
-// 4) Debido a que Invitable es una característica de individuos, la interfaz también cuenta con un prototipo getNombreCompleto().
-// 5) La clase Asistencia cuenta con información del invitado, un bool de si es que fue o no a la reunión y la hora en que fue, t0do esto
-// para implementar la lógica de las asistencias de la reunión, el booleano para marcarlo como presente o ausente, y la hora para manejar
-// su retraso.
-// 6) Se crea clase InvitadoExterno según lo solicitado en la pauta.
-// 7) Retraso también almacena al individuo invitado, esto para que exista una lista de retrasos en Reunion.
-// 8) Las invitaciones son gestionadas por la clase Reunion debido a que pueden existir varias reuniones, y cada reunion
-// debe tener su propia lista de invitados (y no invitar a un mismo individuo más de una vez)
-// 9) La asistencia es gestionada por la clase Reunion (clase Asistencia sólo existe dentro de Reunion), se crea un mapa
-// que a cada invitado le asigna su Asistencia, y de acuerdo a si llego tarde o no, lo marca como atrasado.
-// 10) Se integraron variables finales estáticas en Reunion para darle el formato correcto al querer imprimir un Instant.
-// 11) Se encontró lógico que los retrasos se cuenten respecto a la hora prevista de la reunión y no la hora real, dado
-// a que eso fue lo "avisado" al individuo invitado, cualquier diferencia entre la hora prevista y real no es culpa del invitado.
-// 12) Todos los que fueron invitados y no se marcaron como presentes antes de que la reunión termine serán marcados como ausentes,
-// esto se implemento viendo discrepancias entre lista de invitados y lista de asistencia.
-// 13) El porcentaje de asistencia es respecto a los invitados, y no se puede dar el caso de que se registren como presentes personas
-// no invitadas.
+// !!
+// No tiene sentido crear instancias de Retraso, Asistencia y Nota fuera del contexto de la reunión, lo podríamos cambiar encapsulando esas clases
+// dentro de la clase reunión, para que solamente Reunion tenga acceso a esos constructores. No lo cambiamos a eso para que todas las clases tengan
+// su archivo .java propio y cumplir con la pauta.
+// !!
 
 public class Main {
 
@@ -74,6 +57,7 @@ public class Main {
 
             test.iniciar();
             System.out.println("\nInicio de reunión:");
+
 
             test.registrarPresencia(emp0, Instant.now().plusSeconds(25));
             test.registrarPresencia(emp1, Instant.now().plusSeconds(20));
