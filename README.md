@@ -46,3 +46,5 @@
 Se puede acceder presionando [este enlace](https://raw.githubusercontent.com/Diego-Mtus/Tarea2/refs/heads/main/UML%20Tarea2.png)
 
 ![](https://raw.githubusercontent.com/Diego-Mtus/Tarea2/refs/heads/main/UML%20Tarea2.png)
+
+### Puedes acceder al JavaDoc de este proyecto presionando [este enlace](https://diego-mtus.github.io/tarea2_javadoc/) (alojado en github.io).
