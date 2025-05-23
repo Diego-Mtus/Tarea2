@@ -104,9 +104,10 @@ public abstract class Reunion {
      * @param horaPrevista La hora específica en la que se espera que comience la reunión.
      * @param minutosDeDuracion La duración estimada de la reunión en minutos.
      * @param tipoReunion El tipo de reunión, definido por el enumerador {@link tipoReunion}.
-     * @param organizador El empleado que organiza la reunión.
-     *
+     * @param organizador El empleado que organiza la reunión
      * @throws FechaReunionInvalidaException Si la hora prevista es anterior a la actual o si la duración es no positiva.
+     * @throws DuracionReunionInvalidaException Si la duración de la reunión es menor o igual a cero.
+     * @throws OrganizadorInvalidoException Si el organizador no está bien inicializado.
      */
     public Reunion(Instant horaPrevista, int minutosDeDuracion, tipoReunion tipoReunion, Empleado organizador) throws FechaReunionInvalidaException, DuracionReunionInvalidaException, OrganizadorInvalidoException{
         long actual = System.currentTimeMillis();
