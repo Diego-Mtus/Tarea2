@@ -19,7 +19,7 @@ class ReunionTest {
 
 
     @BeforeEach
-    void setUp() throws FechaReunionInvalidaException, DuracionReunionInvalidaException {
+    void setUp() throws FechaReunionInvalidaException, DuracionReunionInvalidaException, OrganizadorInvalidoException {
         organizador = new Empleado("1", "Carlos", "Vega", "carlos@empresa.com");
         empleado1 = new Empleado("2", "Ana", "Soto", "ana@empresa.com");
         empleado2 = new Empleado("3", "Luis", "Martínez", "luis@empresa.com");
