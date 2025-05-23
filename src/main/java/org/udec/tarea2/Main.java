@@ -43,7 +43,7 @@ public class Main {
         Instant fechaPrueba = creadorDeInstant(2025, 5, 20, 20, 2);
 
         try{
-            Reunion test = new ReunionVirtual(Instant.now().plusSeconds(20),1, tipoReunion.TÉCNICA, emp1,"zoom.com");
+            Reunion test = new ReunionVirtual(Instant.now().plusSeconds(20),1, tipoReunion.TÉCNICA, emp0,"zoom.com");
             System.out.println(test);
 
             // Sección de invitar personas

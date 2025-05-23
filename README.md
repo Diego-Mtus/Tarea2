@@ -39,3 +39,10 @@
     La clase `Nota` también guarda el instante de tiempo en que se creo dicha nota.
 16. **Implementación de interfaz `Comparable` en clase `Nota`:**
     La clase `Nota` tiene implementado un método compareTo() para poder ordenar notas cronológicamente. 
+17. **Implementación de método para generar informe:**
+    La clase `Reunion` tiene un método para poder generar un informe con de la reunión tal como lo solicitado, demostración de esto en main, con el documento `test.txt` como resultado.
+
+### Nuevo diagrama UML
+Se puede acceder presionando [este enlace](https://raw.githubusercontent.com/Diego-Mtus/Tarea2/refs/heads/main/UML%20Tarea2.png)
+
+![](https://raw.githubusercontent.com/Diego-Mtus/Tarea2/refs/heads/main/UML%20Tarea2.png)
