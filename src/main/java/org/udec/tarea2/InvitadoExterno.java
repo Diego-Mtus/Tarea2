@@ -3,6 +3,11 @@ package org.udec.tarea2;
 import java.time.Instant;
 import java.util.Date;
 
+/** Clase que representa a un invitado externo, el cual puede ser invitado a reuniones mediante la implementación
+ *  de {@link Invitable}.
+ * Cada invitado externo tiene un nombre, apellidos y un correo
+ *  electrónico asociado.
+ */
 public class InvitadoExterno implements Invitable{
 
     /** Variables que almacenan los datos del invitado.
