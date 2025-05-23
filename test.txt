@@ -1,0 +1,33 @@
+=== Informe de reunión ===
+
+Tipo de reunión: TÉCNICA
+La reunión comienza a las 09:28:20 p. m. CLT, 22/05/2025 y dura 1 minutos.
+Organizado por: Empleado Ana Soto (ID: 2) con el correo electrónico: ana@empresa.com.
+Enlace: zoom.com
+
+--- Invitados ---
+Empleado Ana Soto (ID: 2) con el correo electrónico: ana@empresa.com.
+Empleado Carlos Paz (ID: 3) con el correo electrónico: carlos@empresa.com.
+Invitado externo María Rojas con el correo electrónico: maria@ext.com.
+
+Hora de inicio real: 09:28:00 p. m. CLT
+Hora de fin real: 09:34:00 p. m. CLT
+Duración real: 6.0 minutos. 
+
+--- Participantes ---
+Total de asistencia: 1
+Porcentaje de asistencia: 33.333336%
+
+- Presentes -
+María Rojas
+
+- Atrasos -
+
+- Ausentes -
+Carlos Paz
+Ana Soto
+
+--- Notas de la reunión ---
+Nota creada a las 09:28:00 p. m. CLT: Nota 2 test.
+Nota creada a las 09:28:02 p. m. CLT: Nota 1 test.
+=========================
