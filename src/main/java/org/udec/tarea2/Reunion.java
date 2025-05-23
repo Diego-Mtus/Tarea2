@@ -143,6 +143,16 @@ public abstract class Reunion {
         return organizador.toString();
     }
 
+
+    /**
+     * Método que obtiene una copia de la lista de todas las invitaciones asociadas a la reunión.
+     *
+     * @return Lista de objetos {@link Invitacion} que representa las invitaciones de la reunión.
+     */
+    public List<Invitacion> getListaInvitaciones() {
+        return new ArrayList<>(listaInvitaciones);
+    }
+
     /**
      * Calcula el tiempo real transcurrido en minutos entre el inicio y el fin de una reunión.
      * Si no se han definido las horas de inicio y fin, se retorna 0.

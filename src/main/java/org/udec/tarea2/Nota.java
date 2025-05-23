@@ -3,11 +3,11 @@ package org.udec.tarea2;
 import java.time.Instant;
 import java.util.Date;
 
-public class Nota implements Comparable<Nota>{
+public class Nota implements Comparable<Nota> {
     private String contenido;
     private Instant horaDeCreacion;
 
-    public Nota(String contenido, Instant horaDeCreacion){
+    public Nota(String contenido, Instant horaDeCreacion) {
         this.contenido = contenido;
         this.horaDeCreacion = horaDeCreacion;
     }
@@ -20,6 +20,10 @@ public class Nota implements Comparable<Nota>{
 
     public Instant getHoraDeCreacion() {
         return horaDeCreacion;
+    }
+
+    public String getContenido() {
+        return contenido;
     }
 
     @Override

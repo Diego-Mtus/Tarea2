@@ -13,10 +13,6 @@ public class Invitacion {
         this.invitado.invitar(horaInicio);
     }
 
-    public Instant getHoraInicio() {
-        return horaInicio;
-    }
-
     public Invitable getInvitado() {
         return invitado;
     }
